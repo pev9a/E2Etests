@@ -1,0 +1,62 @@
+plugins {
+    id 'java-library'
+    id "io.qameta.allure" version "2.12.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
+def allureVersion = "2.29.1",
+    selenideVersion = "7.6.1",
+    slf4jVersion = "2.0.16",
+    junitJupiterVersion = "5.11.4",
+    junitVersion = "4.13.2"
+//    webDriverManagerVersion = "5.9.2"
+
+
+allure {
+    report {
+        version.set(allureVersion)
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set(allureVersion)
+            }
+        }
+    }
+}
+
+dependencies {
+    testImplementation (
+            "com.codeborne:selenide:$selenideVersion",
+            "io.qameta.allure:allure-selenide:$allureVersion",
+            "org.junit.jupiter:junit-jupiter:$junitJupiterVersion",
+            "org.slf4j:slf4j-simple:$slf4jVersion",
+            "junit:junit:$junitVersion"
+//            "io.github.bonigarcia:webdrivermanager:$webDriverManagerVersion"
+    )
+    implementation (
+            "org.seleniumhq.selenium:selenium-java:4.27.0",
+            "com.codeborne:selenide-core:7.7.0"
+    )
+
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
