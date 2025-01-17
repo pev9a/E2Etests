@@ -19,10 +19,11 @@ public class OrderTopButtonTest extends TestBase {
     private final String color = "чёрный жемчуг";
     private final String comment = "Позвонить перед доставкой";
 
-    //аннотации везде
     @Test
     void orderTopMenuButtonTest(){
+
         mainPage.openPage();
+
         orderPage.clickTopMenuButton()
                 .setFirstName(name)
                 .setLastName(lastname)
@@ -30,12 +31,16 @@ public class OrderTopButtonTest extends TestBase {
                 .setMetroStation(metro)
                 .setTelephoneNumber(phone)
                 .clickButtonNext()
+
                 .setDeliveryDate(date)
                 .setRentalPeriod(rent)
                 .setColor(color)
                 .setComment(comment)
                 .placeAnOrder()
+
                 .checkConfirmWindow()
                 .checkCompleteOrder();
+
     }
+
 }

@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class MainPage {
-//вынести текст в enum
+
     private final SelenideElement
             confirmCookiesButton = $("#rcc-confirm-button"),
             Question1 = $("#accordion__heading-0"), Answer1 = $(".accordion__panel"),
@@ -26,7 +26,7 @@ public class MainPage {
         return this;
     }
 
-    public MainPage checkAnswerTheFirstQuestion(){
+    public MainPage checkAnsTheQue1(){
         Question1.click();
         Answer1.shouldHave(text("Сутки — 400 рублей. Оплата курьеру — наличными или картой."));
         return this;
@@ -72,9 +72,10 @@ public class MainPage {
         return this;
     }
 
-    public void checkAnsTheQue8(){
+    public MainPage checkAnsTheQue8(){
         Question8.click();
         Answer8.shouldHave(text("Да, обязательно. Всем самокатов! И Москве, и Московской области."));
+        return this;
     }
 
 }
