@@ -7,11 +7,11 @@ import ru.scooter.helpers.TestBase;
 public class ImportantQuestionsTest extends TestBase {
     MainPage mainPage = new MainPage();
 
+    //аннотации
     @Test
     void dropdownListTextTest(){
-
         mainPage.openPage()
-                .checkAnsTheQue1()
+                .checkAnswerTheFirstQuestion()
                 .checkAnsTheQue2()
                 .checkAnsTheQue3()
                 .checkAnsTheQue4()
@@ -21,5 +21,4 @@ public class ImportantQuestionsTest extends TestBase {
                 .checkAnsTheQue8();
 
     }
-
 }

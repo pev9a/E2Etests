@@ -14,7 +14,7 @@ public class OrderPage {
 
     public final String yandexUrl = "https://yandex.ru";
 
-    public final String orderUrl = "https://qa-scooter.praktikum-services.ru/order";
+    public final String orderUrl = "/order";
 
     private final SelenideElement
             firstNameInput = $("input[placeholder=\"* Имя\"]"),

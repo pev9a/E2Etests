@@ -21,9 +21,7 @@ public class OrderBottomButtonTest extends TestBase {
 
     @Test
     void orderBottomMenuButtonTest(){
-
         mainPage.openPage();
-
         orderPage.clickBottomMenuButton()
                 .setFirstName(name)
                 .setLastName(lastname)
@@ -31,16 +29,12 @@ public class OrderBottomButtonTest extends TestBase {
                 .setMetroStation(metro)
                 .setTelephoneNumber(phone)
                 .clickButtonNext()
-
                 .setDeliveryDate(date)
                 .setRentalPeriod(rent)
                 .setColor(color)
                 .setComment(comment)
                 .placeAnOrder()
-
                 .checkConfirmWindow()
                 .checkCompleteOrder();
-
     }
-
 }

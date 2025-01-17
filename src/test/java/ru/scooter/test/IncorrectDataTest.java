@@ -23,23 +23,18 @@ public class IncorrectDataTest extends TestBase {
                 .checkErrorMessage()
                 .setAddress(incorrectAddress)
                 .checkCorrectAddress()
-
                 .setFirstName(name)
                 .setLastName(lastname)
                 .setAddress(address)
                 .setMetroStation(metro)
                 .setTelephoneNumber(phone)
                 .clickButtonNext()
-
                 .setDeliveryDate(date)
                 .orderButtonInOrder()
                 .checkNotCompleteOrder()
-
                 .removeDateDelivery()
-
                 .setRentalPeriod(rent)
                 .orderButtonInOrder()
                 .checkNotCompleteOrder();// Ошибки не выдает, но заказ создать не получается.
     }
-
 }
