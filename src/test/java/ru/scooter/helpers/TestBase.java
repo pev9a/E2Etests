@@ -1,15 +1,10 @@
-package ru.scooter.test;
+package ru.scooter.helpers;
 
 import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 
-
-
 public class TestBase {
-
-    public final String orderUrl = "https://qa-scooter.praktikum-services.ru/order";
-
-    public final String yandexUrl = "https://yandex.ru";
 
     @BeforeAll
     static void beforeAll() {
@@ -19,4 +14,5 @@ public class TestBase {
         Configuration.browserSize = "1920x1080";
 
     }
+
 }

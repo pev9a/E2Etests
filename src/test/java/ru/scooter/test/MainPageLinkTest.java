@@ -1,25 +1,19 @@
 package ru.scooter.test;
 
-
-
 import org.junit.jupiter.api.Test;
+import pageObjects.OrderPage;
+import ru.scooter.helpers.TestBase;
 
-import static com.codeborne.selenide.Configuration.baseUrl;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverConditions.url;
-
-
-
-public class MainPageLinkTest extends TestBase{
+public class MainPageLinkTest extends TestBase {
+    OrderPage orderPage = new OrderPage();
 
     @Test
     void goToTheMainPageUsingTheLogoScooterIsCorrect() {
-        open(orderUrl);
-        $("#rcc-confirm-button").click();
 
-        $(".Header_LogoScooter__3lsAR").click();
-        webdriver().shouldNotHave(url(yandexUrl));
-        webdriver().shouldHave(url(baseUrl));
+        orderPage.orderOpenPage()
+                .clickScooterLogo()
+                .checkLinkPage();
 
     }
+
 }
