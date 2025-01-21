@@ -1,81 +1,91 @@
 package pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Configuration.baseUrl;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static pageObjects.components.AnswerTheQuestion.*;
 
 public class MainPage {
 
     private final SelenideElement
             confirmCookiesButton = $("#rcc-confirm-button"),
-            Question1 = $("#accordion__heading-0"), Answer1 = $(".accordion__panel"),
-            Question2 = $("#accordion__heading-1"), Answer2 = $("#accordion__panel-1"),
-            Question3 = $("#accordion__heading-2"), Answer3 = $("#accordion__panel-2"),
-            Question4 = $("#accordion__heading-3"), Answer4 = $("#accordion__panel-3"),
-            Question5 = $("#accordion__heading-4"), Answer5 = $("#accordion__panel-4"),
-            Question6 = $("#accordion__heading-5"), Answer6 = $("#accordion__panel-5"),
-            Question7 = $("#accordion__heading-6"), Answer7 = $("#accordion__panel-6"),
-            Question8 = $("#accordion__heading-7"), Answer8 = $("#accordion__panel-7");
+            QuestionOne = $("#accordion__heading-0"),
+            AnswerOne = $(".accordion__panel"),
+            QuestionTwo = $("#accordion__heading-1"),
+            AnswerTwo = $("#accordion__panel-1"),
+            QuestionThree = $("#accordion__heading-2"),
+            AnswerThree = $("#accordion__panel-2"),
+            QuestionFour = $("#accordion__heading-3"),
+            AnswerFour = $("#accordion__panel-3"),
+            QuestionFive = $("#accordion__heading-4"),
+            AnswerFive = $("#accordion__panel-4"),
+            QuestionSix = $("#accordion__heading-5"),
+            AnswerSix = $("#accordion__panel-5"),
+            QuestionSeven = $("#accordion__heading-6"),
+            AnswerSeven = $("#accordion__panel-6"),
+            QuestionEight = $("#accordion__heading-7"),
+            AnswerEight = $("#accordion__panel-7");
 
-    public MainPage openPage(){
-        open(baseUrl);
-        confirmCookiesButton.click();
+    @Step("Принятие cookies")
+    public void acceptCookies(){
+        confirmCookiesButton.shouldBe(visible).click();
+    }
+
+    @Step("Проверка текста ответа на первый вопрос")
+    public MainPage checkAnswerTheQuestionOne(){
+        QuestionOne.click();
+        AnswerOne.shouldHave(text(FIRST_RESPONSE_TEXT.getText()));
         return this;
     }
 
-    public MainPage checkAnsTheQue1(){
-        Question1.click();
-        Answer1.shouldHave(text("Сутки — 400 рублей. Оплата курьеру — наличными или картой."));
+    @Step("Проверка текста второй на первый вопрос")
+    public MainPage checkAnswerTheQuestionTwo(){
+        QuestionTwo.click();
+        AnswerTwo.shouldHave(text(TEXT_OF_THE_SECOND_ANSWER.getText()));
         return this;
     }
 
-    public MainPage checkAnsTheQue2(){
-        Question2.click();
-        Answer2.shouldHave(text("Пока что у нас так: один заказ — один самокат. " +
-                "Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."));
+    @Step("Проверка текста ответа на третий вопрос")
+    public MainPage checkAnswerTheQuestionThree(){
+        QuestionThree.click();
+        AnswerThree.shouldHave(text(TEXT_OF_THE_THIRD_ANSWER.getText()));
         return this;
     }
 
-    public MainPage checkAnsTheQue3(){
-        Question3.click();
-        Answer3.shouldHave(text("Допустим, вы оформляете заказ на 8 мая. " +
-                "Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. " +
-                "Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."));
+    @Step("Проверка текста ответа на четвертый вопрос")
+    public MainPage checkAnswerTheQuestionFour(){
+        QuestionFour.click();
+        AnswerFour.shouldHave(text(TEXT_OF_THE_FOURTH_ANSWER.getText()));
         return this;
     }
 
-    public MainPage checkAnsTheQue4(){
-        Question4.click();
-        Answer4.shouldHave(text("Только начиная с завтрашнего дня. Но скоро станем расторопнее."));
+    @Step("Проверка текста ответа на пятый вопрос")
+    public MainPage checkAnswerTheQuestionFive(){
+        QuestionFive.click();
+        AnswerFive.shouldHave(text(TEXT_OF_THE_FIFTH_ANSWER.getText()));
         return this;
     }
 
-    public MainPage checkAnsTheQue5(){
-        Question5.click();
-        Answer5.shouldHave(text("Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."));
+    @Step("Проверка текста ответа на шестой вопрос")
+    public MainPage checkAnswerTheQuestionSix(){
+        QuestionSix.click();
+        AnswerSix.shouldHave(text(TEXT_OF_THE_SIXTH_ANSWER.getText()));
         return this;
     }
 
-    public MainPage checkAnsTheQue6(){
-        Question6.click();
-        Answer6.shouldHave(text("Самокат приезжает к вам с полной зарядкой. " +
-                "Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."));
+    @Step("Проверка текста ответа на седьмой вопрос")
+    public MainPage checkAnswerTheQuestionSeven(){
+        QuestionSeven.click();
+        AnswerSeven.shouldHave(text(TEXT_OF_THE_SEVENTH_ANSWER.getText()));
         return this;
     }
 
-    public MainPage checkAnsTheQue7(){
-        Question7.click();
-        Answer7.shouldHave(text("Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."));
-        return this;
+    @Step("Проверка текста ответа на восьмой вопрос")
+    public void checkAnswerTheQuestionEight(){
+        QuestionEight.click();
+        AnswerEight.shouldHave(text(TEXT_OF_THE_EIGHT_ANSWER.getText()));
     }
-
-    public MainPage checkAnsTheQue8(){
-        Question8.click();
-        Answer8.shouldHave(text("Да, обязательно. Всем самокатов! И Москве, и Московской области."));
-        return this;
-    }
-
 }

@@ -1,29 +1,16 @@
 package ru.scooter.test;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pageObjects.MainPage;
 import pageObjects.OrderPage;
-import ru.scooter.helpers.TestBase;
+import ru.scooter.helpers.TestData;
 
-public class OrderTopButtonTest extends TestBase {
-    MainPage mainPage = new MainPage();
+public class OrderTopButtonTest extends TestData {
     OrderPage orderPage = new OrderPage();
 
-    private final String name = "Владимир";
-    private final String lastname = "Иванов";
-    private final String address = "Москва, ул. Пушкина, 47";
-    private final String metro = "Фрунзенская";
-    private final String phone = "+79194532558";
-    private final String date = "06.01.2025";
-    private final String rent = "трое суток";
-    private final String color = "чёрный жемчуг";
-    private final String comment = "Позвонить перед доставкой";
-
     @Test
+    @DisplayName("Проверка заказа самоката из кнопки в верхнем меню")
     void orderTopMenuButtonTest(){
-
-        mainPage.openPage();
-
         orderPage.clickTopMenuButton()
                 .setFirstName(name)
                 .setLastName(lastname)
@@ -31,16 +18,12 @@ public class OrderTopButtonTest extends TestBase {
                 .setMetroStation(metro)
                 .setTelephoneNumber(phone)
                 .clickButtonNext()
-
                 .setDeliveryDate(date)
                 .setRentalPeriod(rent)
                 .setColor(color)
                 .setComment(comment)
                 .placeAnOrder()
-
                 .checkConfirmWindow()
                 .checkCompleteOrder();
-
     }
-
 }

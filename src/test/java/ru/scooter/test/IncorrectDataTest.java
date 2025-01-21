@@ -1,45 +1,35 @@
 package ru.scooter.test;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pageObjects.OrderPage;
-import ru.scooter.helpers.TestBase;
+import ru.scooter.helpers.TestData;
 
-public class IncorrectDataTest extends TestBase {
+import static com.codeborne.selenide.Selenide.open;
+
+public class IncorrectDataTest extends TestData {
     OrderPage orderPage = new OrderPage();
 
-    private final String incorrectAddress = "2";
-    private final String name = "Максим";
-    private final String lastname = "Ишков";
-    private final String address = "Москва, ул. Гоголя, 52";
-    private final String metro = "Спортивная";
-    private final String phone = "+79191332466";
-    private final String date = "25.01.2025";
-    private final String rent = "сутки";
-
     @Test
+    @DisplayName("Проверка заказа самоката с введением некорректных данных")
     void orderWithIncorrectData(){
-        orderPage.orderOpenPage()
-                .clickButtonNext()
+        open("order");
+        orderPage.clickButtonNext()
                 .checkErrorMessage()
                 .setAddress(incorrectAddress)
                 .checkCorrectAddress()
-
                 .setFirstName(name)
                 .setLastName(lastname)
                 .setAddress(address)
                 .setMetroStation(metro)
                 .setTelephoneNumber(phone)
                 .clickButtonNext()
-
                 .setDeliveryDate(date)
                 .orderButtonInOrder()
                 .checkNotCompleteOrder()
-
                 .removeDateDelivery()
-
                 .setRentalPeriod(rent)
                 .orderButtonInOrder()
                 .checkNotCompleteOrder();// Ошибки не выдает, но заказ создать не получается.
     }
-
 }
