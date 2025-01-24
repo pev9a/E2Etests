@@ -1,8 +1,8 @@
-package pageObjects;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import pageObjects.components.Calendar;
+import pages.components.Calendar;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Configuration.baseUrl;
@@ -14,36 +14,36 @@ import static com.codeborne.selenide.WebDriverConditions.url;
 public class OrderPage {
     Calendar calendarComponent = new Calendar();
 
-    public final String yandexUrl = "https://yandex.ru";
+    public final String yandexUrl = "https://yandex.ru"; //поч это тут? убрать в тест бейз
 
     private final SelenideElement
-            firstNameInput = $("input[placeholder=\"* Имя\"]"),
+            firstNameInput = $("input[placeholder=\"* Имя\"]"), //исправить " на ' чтобы обойтись без экранирования
             lastNameInput = $("input[placeholder=\"* Фамилия\"]"),
             addressInput = $("input[placeholder=\"* Адрес: куда привезти заказ\"]"),
             telephoneNumberInput = $("input[placeholder=\"* Телефон: на него позвонит курьер\"]"),
             commentInput = $("input[placeholder=\"Комментарий для курьера\"]"),
             topMenuButton = $(".Button_Button__ra12g"),
-            bottomMenuButton = $(".Home_FinishButton__1_cWm").$(byText("Заказать")),
+            bottomMenuButton = $(".Home_FinishButton__1_cWm").$(byText("Заказать")), //сделать на XPATH
             metroStation = $("input[placeholder=\"* Станция метро\"]"),
             buttonNext = $(".Button_Button__ra12g.Button_Middle__1CSJM"),
             rentPeriod = $(".Dropdown-root"),
-            buttonOrderInOrder = $(".Order_Buttons__1xGrp").$(byText("Заказать")),
-            buttonYesInOrder = $(".Order_Modal__YZ-d3").$(byText("Да")),
+            buttonOrderInOrder = $(".Order_Buttons__1xGrp").$(byText("Заказать")),//сделать на XPATH
+            buttonYesInOrder = $(".Order_Modal__YZ-d3").$(byText("Да")),//сделать на XPATH
             errorMessage = $(".Input_Visible___syz6"),
             scooterLogo = $(".Header_LogoScooter__3lsAR"),
             confirmWindow = $(".Order_Modal__YZ-d3"),
             confirmMessage = $(".Order_ModalHeader__3FDaJ"),
             errorAddressMessage = $(".Order_Form__17u6u"),
-            buttonViewStatus = $(".Order_NextButton__1_rCA").$(byText("Посмотреть статус")),
+            buttonViewStatus = $(".Order_NextButton__1_rCA").$(byText("Посмотреть статус")),//сделать на XPATH
             completedOrderWindow = $(".Track_OrderInfo__2fpDL");
 
-    @Step("Клик на кнопку заказа в верхней правой части сайта")
-    public OrderPage clickTopMenuButton(){
+    @Step("Клик на кнопку заказа в верхней правой части сайта") //проблема в нейминге, должно быть "Заказать самокат через кнопку в верхней правой части сайта"
+    public OrderPage clickTopMenuButton(){ //середина страницы то не bottom а middle, orderScooterByTopMenuButton
         topMenuButton.click();
         return this;
     }
 
-    @Step("Клик на кнопку заказа в середине страницы сайта")
+    @Step("Клик на кнопку заказа в середине страницы сайта") //проблема в нейминге, должно быть "Заказать самокат через кнопку в середине сайта"
     public OrderPage clickBottomMenuButton(){
         bottomMenuButton.click();
         return this;
@@ -96,7 +96,13 @@ public class OrderPage {
         metroStation.click();
         $(byText(value)).click();
         return this;
-    }
+    }/*сделай так ток переменная не х, а по смыслу и так везде где byText
+    public OrderPage setMetroStation(String value) {
+   *metroStation.click(); // Предположим, это открывает список станций
+    SelenideElement x = $(byText(value)); // Присваиваем элемент переменной x
+    x.click(); // Кликаем по элементу
+    return this;
+    }*/
 
     @Step("Клик по кнопке 'Далее'")
     public OrderPage clickButtonNext(){
@@ -117,14 +123,14 @@ public class OrderPage {
         return this;
     }
 
-    @Step("Метод заказа самоката(Кнопка 'Заказать' -> Кнопка 'Да')")
+    @Step("Метод заказа самоката(Кнопка 'Заказать' -> Кнопка 'Да')") //нейминг по тому же принципу как выше
     public OrderPage placeAnOrder(){
         buttonOrderInOrder.click();
         buttonYesInOrder.click();
         return this;
     }
 
-    @Step("Клик по кнопке 'Заказать' в заказе")
+    @Step("Клик по кнопке 'Заказать' в заказе") //снвоа клик
     public OrderPage orderButtonInOrder(){
         buttonOrderInOrder.click();
         return this;
@@ -152,7 +158,7 @@ public class OrderPage {
     @Step("Проверка оформленного заказа")
     public void checkCompleteOrder(){
         buttonViewStatus.click();
-        completedOrderWindow.shouldHave(text("Владимир"),
+        completedOrderWindow.shouldHave(text("Владимир"),//сделать параметризацию (так Саня сказал) чтобы не было хардкода как параметр и прокидывать его сюда
                 text("Иванов"),
                 text("Москва, ул. Пушкина, 47"),
                 text("+79194532558"));
@@ -164,13 +170,13 @@ public class OrderPage {
         return this;
     }
 
-    @Step("Клик по логотипу 'Самокат'")
+    @Step("Клик по логотипу 'Самокат'") //клик снова ёбаный
     public OrderPage clickScooterLogo(){
         scooterLogo.click();
         return this;
     }
 
-    @Step("Проверка ссылки перенаправления")
+    @Step("Проверка ссылки перенаправления") //тоже параметризация требуется
     public void checkLinkPage(){
         webdriver().shouldNotHave(url(yandexUrl));
         webdriver().shouldHave(url(baseUrl));

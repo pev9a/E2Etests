@@ -1,4 +1,4 @@
-package pageObjects;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -6,7 +6,7 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static pageObjects.components.AnswerTheQuestion.*;
+import static pages.components.AnswerTheQuestion.*;
 
 public class MainPage {
 
@@ -28,13 +28,14 @@ public class MainPage {
             AnswerSeven = $("#accordion__panel-6"),
             QuestionEight = $("#accordion__heading-7"),
             AnswerEight = $("#accordion__panel-7");
+    //сделать нейминг относительно содержания страницы по типу "Сколько будет стоить" = HowMuchCostQuestion
 
-    @Step("Принятие cookies")
+    @Step("Принятие cookies") // норм пример того как должен быть выстроен нейминг, вместо кликов
     public void acceptCookies(){
         confirmCookiesButton.shouldBe(visible).click();
-    }
+    }// создать общий класс Common и вынести туда этот метод
 
-    @Step("Проверка текста ответа на первый вопрос")
+    @Step("Проверка текста ответа на первый вопрос") // нейминг относительно содержания вопроса
     public MainPage checkAnswerTheQuestionOne(){
         QuestionOne.click();
         AnswerOne.shouldHave(text(FIRST_RESPONSE_TEXT.getText()));
@@ -87,5 +88,6 @@ public class MainPage {
     public void checkAnswerTheQuestionEight(){
         QuestionEight.click();
         AnswerEight.shouldHave(text(TEXT_OF_THE_EIGHT_ANSWER.getText()));
+        //добавить return;
     }
 }

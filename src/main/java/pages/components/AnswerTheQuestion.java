@@ -1,6 +1,6 @@
-package pageObjects.components;
+package pages.components;
 
-public enum AnswerTheQuestion {
+public enum AnswerTheQuestion { //создать отдельную TestData под это
     FIRST_RESPONSE_TEXT("Сутки — 400 рублей. Оплата курьеру — наличными или картой."),
     TEXT_OF_THE_SECOND_ANSWER("Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, " +
             "можете просто сделать несколько заказов — один за другим."),

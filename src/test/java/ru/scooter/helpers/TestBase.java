@@ -4,12 +4,12 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import pageObjects.MainPage;
+import pages.MainPage;
 
 import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.open;
 
-public class TestBase {
+public class TestBase { //это не хелперы а конфигурейшн
     protected static MainPage mainPage = new MainPage();
 
     @BeforeEach
@@ -19,7 +19,7 @@ public class TestBase {
         Configuration.browserSize = "1920x1080";
 
         open(baseUrl);
-        mainPage.acceptCookies();
+        mainPage.acceptCookies(); // вынести это в каждый тест в хук @BeforeEach, тк в реальном проекте возможны ситуации, когда куки ты уже пробросил и акцептить их не надо
     }
 
     @AfterEach

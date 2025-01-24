@@ -2,15 +2,15 @@ package ru.scooter.test;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pageObjects.OrderPage;
+import pages.OrderPage;
 import ru.scooter.helpers.TestData;
 
 public class OrderTopButtonTest extends TestData {
-    OrderPage orderPage = new OrderPage();
+    OrderPage orderPage = new OrderPage(); //private final
 
     @Test
     @DisplayName("Проверка заказа самоката из кнопки в верхнем меню")
-    void orderTopMenuButtonTest(){
+    void orderTopMenuButtonTest(){ // обьеднить методы по смыслу для сокращения степов
         orderPage.clickTopMenuButton()
                 .setFirstName(name)
                 .setLastName(lastname)

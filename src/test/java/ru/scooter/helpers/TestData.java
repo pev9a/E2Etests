@@ -1,6 +1,7 @@
 package ru.scooter.helpers;
 
-public class TestData extends TestBase{
+public class TestData extends TestBase{ //схуя в хелперах, должен быть отдельный ПЭКЕДЖ названный тест дата и можно это тоже енамчиком сделать
+    //также неясно зачем он наследуется от тестбейза если не используется от него нихуя
     protected final String name = "Владимир";
     protected final String lastname = "Иванов";
     protected final String address = "Москва, ул. Пушкина, 47";
