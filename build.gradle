@@ -19,7 +19,7 @@ dependencies {
             "io.qameta.allure:allure-selenide:$allureVersion",
             "org.junit.jupiter:junit-jupiter:$junitJupiterVersion",
             "org.slf4j:slf4j-simple:$slf4jVersion",
-            "junit:junit:$junitVersion",
+            "junit:junit:$junitVersion"
     )
     implementation (
             "com.codeborne:selenide:$selenideVersion",

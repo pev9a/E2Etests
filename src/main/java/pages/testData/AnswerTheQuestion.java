@@ -1,4 +1,4 @@
-package pages.components;
+package pages.testData;
 
 public enum AnswerTheQuestion { //создать отдельную TestData под это
     FIRST_RESPONSE_TEXT("Сутки — 400 рублей. Оплата курьеру — наличными или картой."),

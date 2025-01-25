@@ -4,90 +4,95 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static pages.components.AnswerTheQuestion.*;
+import static pages.testData.AnswerTheQuestion.*;
 
 public class MainPage {
 
     private final SelenideElement
-            confirmCookiesButton = $("#rcc-confirm-button"),
-            QuestionOne = $("#accordion__heading-0"),
-            AnswerOne = $(".accordion__panel"),
-            QuestionTwo = $("#accordion__heading-1"),
-            AnswerTwo = $("#accordion__panel-1"),
-            QuestionThree = $("#accordion__heading-2"),
-            AnswerThree = $("#accordion__panel-2"),
-            QuestionFour = $("#accordion__heading-3"),
-            AnswerFour = $("#accordion__panel-3"),
-            QuestionFive = $("#accordion__heading-4"),
-            AnswerFive = $("#accordion__panel-4"),
-            QuestionSix = $("#accordion__heading-5"),
-            AnswerSix = $("#accordion__panel-5"),
-            QuestionSeven = $("#accordion__heading-6"),
-            AnswerSeven = $("#accordion__panel-6"),
-            QuestionEight = $("#accordion__heading-7"),
-            AnswerEight = $("#accordion__panel-7");
+            HowMuchCostQuestion = $("#accordion__heading-0"),
+            fourHundredRublesForDayAnswer = $(".accordion__panel"),
+            isItPossibleToHaveSeveralScootersAtOnceQuestion = $("#accordion__heading-1"),
+            oneOrderOneScooterAnswer = $("#accordion__panel-1"),
+            howIsRentalTimeCalculatedQuestions = $("#accordion__heading-2"),
+            theRentalTimeStartsAnswer = $("#accordion__panel-2"),
+            isItPossibleToGetScooterTodayQuestions = $("#accordion__heading-3"),
+            startingTomorrowAnswer = $("#accordion__panel-3"),
+            isItPossibleToExtendTheOrderQuestion = $("#accordion__heading-4"),
+            notYetAnswer = $("#accordion__panel-4"),
+            areYouBringingChargersQuestion = $("#accordion__heading-5"),
+            scooterWithFullChargeAnswer = $("#accordion__panel-5"),
+            isItPossibleToCancelAnOrderQuestion = $("#accordion__heading-6"),
+            scooterWasNotDeliveredAnswer = $("#accordion__panel-6"),
+            bringItOutsideTheMoscowRingRoadQuestion = $("#accordion__heading-7"),
+            definitelyAllScootersAnswer = $("#accordion__panel-7");
     //сделать нейминг относительно содержания страницы по типу "Сколько будет стоить" = HowMuchCostQuestion
 
-    @Step("Принятие cookies") // норм пример того как должен быть выстроен нейминг, вместо кликов
-    public void acceptCookies(){
-        confirmCookiesButton.shouldBe(visible).click();
-    }// создать общий класс Common и вынести туда этот метод
-
-    @Step("Проверка текста ответа на первый вопрос") // нейминг относительно содержания вопроса
-    public MainPage checkAnswerTheQuestionOne(){
-        QuestionOne.click();
-        AnswerOne.shouldHave(text(FIRST_RESPONSE_TEXT.getText()));
+    @Step("Проверка текста ответа 'Сутки — 400 рублей'") // нейминг относительно содержания вопроса
+    public MainPage checkAnswerFourHundredRublesForDay(){
+        HowMuchCostQuestion.click();
+        fourHundredRublesForDayAnswer.shouldHave(text(FIRST_RESPONSE_TEXT.getText()));
         return this;
     }
 
-    @Step("Проверка текста второй на первый вопрос")
-    public MainPage checkAnswerTheQuestionTwo(){
-        QuestionTwo.click();
-        AnswerTwo.shouldHave(text(TEXT_OF_THE_SECOND_ANSWER.getText()));
+    @Step("Проверка текста ответа 'Один заказ — один самокат'")
+    public MainPage checkAnswerOneOrderOneScooter(){
+        isItPossibleToHaveSeveralScootersAtOnceQuestion.click();
+        oneOrderOneScooterAnswer.shouldHave(text(TEXT_OF_THE_SECOND_ANSWER.getText()));
         return this;
     }
 
-    @Step("Проверка текста ответа на третий вопрос")
-    public MainPage checkAnswerTheQuestionThree(){
-        QuestionThree.click();
-        AnswerThree.shouldHave(text(TEXT_OF_THE_THIRD_ANSWER.getText()));
+    @Step("Проверка текста ответа 'Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру.'")
+    public MainPage checkAnswerTheRentalTimeStarts(){
+        howIsRentalTimeCalculatedQuestions.click();
+        theRentalTimeStartsAnswer.shouldHave(text(TEXT_OF_THE_THIRD_ANSWER.getText()));
         return this;
     }
 
-    @Step("Проверка текста ответа на четвертый вопрос")
-    public MainPage checkAnswerTheQuestionFour(){
-        QuestionFour.click();
-        AnswerFour.shouldHave(text(TEXT_OF_THE_FOURTH_ANSWER.getText()));
+    @Step("Проверка текста ответа 'Только начиная с завтрашнего дня'")
+    public MainPage checkAnswerStartingTomorrow(){
+        isItPossibleToGetScooterTodayQuestions.click();
+        startingTomorrowAnswer.shouldHave(text(TEXT_OF_THE_FOURTH_ANSWER.getText()));
         return this;
     }
 
-    @Step("Проверка текста ответа на пятый вопрос")
-    public MainPage checkAnswerTheQuestionFive(){
-        QuestionFive.click();
-        AnswerFive.shouldHave(text(TEXT_OF_THE_FIFTH_ANSWER.getText()));
+    @Step("Проверка текста ответа 'Пока что нет!'")
+    public MainPage checkAnswerNotYet(){
+        isItPossibleToExtendTheOrderQuestion.click();
+        notYetAnswer.shouldHave(text(TEXT_OF_THE_FIFTH_ANSWER.getText()));
         return this;
     }
 
-    @Step("Проверка текста ответа на шестой вопрос")
-    public MainPage checkAnswerTheQuestionSix(){
-        QuestionSix.click();
-        AnswerSix.shouldHave(text(TEXT_OF_THE_SIXTH_ANSWER.getText()));
+    @Step("Проверка текста ответа 'Самокат приезжает к вам с полной зарядкой.'")
+    public MainPage checkAnswerScooterWithFullCharge(){
+        areYouBringingChargersQuestion.click();
+        scooterWithFullChargeAnswer.shouldHave(text(TEXT_OF_THE_SIXTH_ANSWER.getText()));
         return this;
     }
 
-    @Step("Проверка текста ответа на седьмой вопрос")
-    public MainPage checkAnswerTheQuestionSeven(){
-        QuestionSeven.click();
-        AnswerSeven.shouldHave(text(TEXT_OF_THE_SEVENTH_ANSWER.getText()));
+    @Step("Проверка текста ответа 'Да, пока самокат не привезли.'")
+    public MainPage checkAnswerScooterWasNotDelivered(){
+        isItPossibleToCancelAnOrderQuestion.click();
+        scooterWasNotDeliveredAnswer.shouldHave(text(TEXT_OF_THE_SEVENTH_ANSWER.getText()));
         return this;
     }
 
-    @Step("Проверка текста ответа на восьмой вопрос")
-    public void checkAnswerTheQuestionEight(){
-        QuestionEight.click();
-        AnswerEight.shouldHave(text(TEXT_OF_THE_EIGHT_ANSWER.getText()));
+    @Step("Проверка текста ответа 'Да, обязательно. Всем самокатов!'")
+    public void checkAnswerDefinitelyAllScooters(){
+        bringItOutsideTheMoscowRingRoadQuestion.click();
+        definitelyAllScootersAnswer.shouldHave(text(TEXT_OF_THE_EIGHT_ANSWER.getText()));
         //добавить return;
+    }
+
+    @Step("Метод проверки вопросов 'Вопросы о важном'")
+    public void methodForCheckingAnswersToQuestion(){
+        checkAnswerFourHundredRublesForDay()
+                .checkAnswerOneOrderOneScooter()
+                .checkAnswerTheRentalTimeStarts()
+                .checkAnswerStartingTomorrow()
+                .checkAnswerNotYet()
+                .checkAnswerScooterWithFullCharge()
+                .checkAnswerScooterWasNotDelivered()
+                .checkAnswerDefinitelyAllScooters();
     }
 }

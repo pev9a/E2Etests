@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import pages.components.Calendar;
@@ -10,42 +11,45 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.webdriver;
 import static com.codeborne.selenide.WebDriverConditions.url;
+import static pages.testData.TestData.*;
 
 public class OrderPage {
     Calendar calendarComponent = new Calendar();
 
-    public final String yandexUrl = "https://yandex.ru"; //поч это тут? убрать в тест бейз
-
     private final SelenideElement
-            firstNameInput = $("input[placeholder=\"* Имя\"]"), //исправить " на ' чтобы обойтись без экранирования
-            lastNameInput = $("input[placeholder=\"* Фамилия\"]"),
-            addressInput = $("input[placeholder=\"* Адрес: куда привезти заказ\"]"),
-            telephoneNumberInput = $("input[placeholder=\"* Телефон: на него позвонит курьер\"]"),
-            commentInput = $("input[placeholder=\"Комментарий для курьера\"]"),
-            topMenuButton = $(".Button_Button__ra12g"),
-            bottomMenuButton = $(".Home_FinishButton__1_cWm").$(byText("Заказать")), //сделать на XPATH
-            metroStation = $("input[placeholder=\"* Станция метро\"]"),
-            buttonNext = $(".Button_Button__ra12g.Button_Middle__1CSJM"),
-            rentPeriod = $(".Dropdown-root"),
-            buttonOrderInOrder = $(".Order_Buttons__1xGrp").$(byText("Заказать")),//сделать на XPATH
-            buttonYesInOrder = $(".Order_Modal__YZ-d3").$(byText("Да")),//сделать на XPATH
+            firstNameInput = $("input[placeholder='* Имя']"), //исправить " на ' чтобы обойтись без экранирования
+            lastNameInput = $("input[placeholder='* Фамилия']"),
+            addressInput = $("input[placeholder='* Адрес: куда привезти заказ']"),
+            telephoneNumberInput = $("input[placeholder='* Телефон: на него позвонит курьер']"),
+            commentInput = $("input[placeholder='Комментарий для курьера']"),
+            metroStation = $("input[placeholder='* Станция метро']"),
+            buttonNext = $x("//*[contains(text(),'Далее')]"),
+            rentPeriod = $(".Dropdown-arrow"),
+            buttonYesInOrder = $x("//*[contains(text(),'Да')]"),//сделать на XPATH
             errorMessage = $(".Input_Visible___syz6"),
             scooterLogo = $(".Header_LogoScooter__3lsAR"),
             confirmWindow = $(".Order_Modal__YZ-d3"),
             confirmMessage = $(".Order_ModalHeader__3FDaJ"),
             errorAddressMessage = $(".Order_Form__17u6u"),
-            buttonViewStatus = $(".Order_NextButton__1_rCA").$(byText("Посмотреть статус")),//сделать на XPATH
+            buttonViewStatus = $x("//*[contains(text(),'Посмотреть статус')]"), //сделать на XPATH
             completedOrderWindow = $(".Track_OrderInfo__2fpDL");
 
-    @Step("Клик на кнопку заказа в верхней правой части сайта") //проблема в нейминге, должно быть "Заказать самокат через кнопку в верхней правой части сайта"
+    private final ElementsCollection
+            buttonOrderInOrder = $$("button.Button_Button__ra12g.Button_Middle__1CSJM"),
+            orderButtons = $$(byText("Заказать")),
+            metroStationSelection = $$("[role='menuitem']"),
+            rentPeriodSelection = $$(".Dropdown-option"),
+            setColorSelection = $$("label");
+
+    @Step("Заказать самокат через кнопку в верхней правой части сайта") //проблема в нейминге, должно быть "Заказать самокат через кнопку в верхней правой части сайта"
     public OrderPage clickTopMenuButton(){ //середина страницы то не bottom а middle, orderScooterByTopMenuButton
-        topMenuButton.click();
+        orderButtons.get(0).click();
         return this;
     }
 
-    @Step("Клик на кнопку заказа в середине страницы сайта") //проблема в нейминге, должно быть "Заказать самокат через кнопку в середине сайта"
-    public OrderPage clickBottomMenuButton(){
-        bottomMenuButton.click();
+    @Step("Заказать самокат через кнопку в середине сайта") //проблема в нейминге, должно быть "Заказать самокат через кнопку в середине сайта"
+    public OrderPage clickMiddleMenuButton(){
+        orderButtons.get(1).click();
         return this;
     }
 
@@ -86,15 +90,14 @@ public class OrderPage {
     }
 
     @Step("Установка значения комментария для курьера")
-    public OrderPage setComment(String value) {
+    public void setComment(String value) {
         commentInput.setValue(value);
-        return this;
     }
 
     @Step("Установка значения станции метро в форму")
     public OrderPage setMetroStation(String value){
         metroStation.click();
-        $(byText(value)).click();
+        metroStationSelection.findBy(text(value)).click();
         return this;
     }/*сделай так ток переменная не х, а по смыслу и так везде где byText
     public OrderPage setMetroStation(String value) {
@@ -104,35 +107,35 @@ public class OrderPage {
     return this;
     }*/
 
-    @Step("Клик по кнопке 'Далее'")
+    @Step("Метод нажатия по кнопке 'Далее' в заказе")
     public OrderPage clickButtonNext(){
         buttonNext.click();
         return this;
     }
 
-    @Step("Клик на поле и установка количества суток аренды")
+    @Step("Метод нажатия на поле ввода и установка количества суток аренды")
     public OrderPage setRentalPeriod(String value){
         rentPeriod.click();
-        $(byText(value)).click();
+        rentPeriodSelection.findBy(text(value)).click();
         return this;
     }
 
     @Step("Установка значения цвета самоката")
     public OrderPage setColor(String value){
-        $(byText(value)).click();
+        setColorSelection.findBy(text(value)).click();
         return this;
     }
 
-    @Step("Метод заказа самоката(Кнопка 'Заказать' -> Кнопка 'Да')") //нейминг по тому же принципу как выше
+    @Step("Метод заказа самоката с полностью заполненной формой и дальнейшее его подтверждение") //нейминг по тому же принципу как выше
     public OrderPage placeAnOrder(){
-        buttonOrderInOrder.click();
+        buttonOrderInOrder.get(1).click();
         buttonYesInOrder.click();
         return this;
     }
 
-    @Step("Клик по кнопке 'Заказать' в заказе") //снвоа клик
+    @Step("Метод нажатия по кнопке 'Заказать' в заказе") //снвоа клик
     public OrderPage orderButtonInOrder(){
-        buttonOrderInOrder.click();
+        buttonOrderInOrder.get(1).click();
         return this;
     }
 
@@ -150,27 +153,25 @@ public class OrderPage {
     }
 
     @Step("Проверка сообщения о неккоректном адресе")
-    public OrderPage checkCorrectAddress(){
+    public void checkCorrectAddress(){
         errorAddressMessage.shouldHave(text("Введите корректный адрес"));
-        return this;
     }
 
     @Step("Проверка оформленного заказа")
     public void checkCompleteOrder(){
         buttonViewStatus.click();
-        completedOrderWindow.shouldHave(text("Владимир"),//сделать параметризацию (так Саня сказал) чтобы не было хардкода как параметр и прокидывать его сюда
-                text("Иванов"),
-                text("Москва, ул. Пушкина, 47"),
-                text("+79194532558"));
+        completedOrderWindow.shouldHave(text(FIRST_NAME.getText()),//сделать параметризацию (так Саня сказал) чтобы не было хардкода как параметр и прокидывать его сюда
+                text(LAST_NAME.getText()),
+                text(ADDRESS.getText()),
+                text(PHONE_NUMBER.getText()));
     }
 
     @Step("Проверка неоформленного заказа")
-    public OrderPage checkNotCompleteOrder(){
+    public void checkNotCompleteOrder(){
         confirmWindow.shouldNotHave(appear);
-        return this;
     }
 
-    @Step("Клик по логотипу 'Самокат'") //клик снова ёбаный
+    @Step("Метод нажатия по логотипу 'Самокат'") //клик снова ёбаный
     public OrderPage clickScooterLogo(){
         scooterLogo.click();
         return this;
@@ -178,8 +179,60 @@ public class OrderPage {
 
     @Step("Проверка ссылки перенаправления") //тоже параметризация требуется
     public void checkLinkPage(){
-        webdriver().shouldNotHave(url(yandexUrl));
         webdriver().shouldHave(url(baseUrl));
+    }
+
+    @Step("Метод заполнения параметров первой страницы заказа")
+    public OrderPage firstPage(){
+                setFirstName(FIRST_NAME.getText())
+                .setLastName(LAST_NAME.getText())
+                .setAddress(ADDRESS.getText())
+                .setMetroStation(SUBWAY_STATION.getText())
+                .setTelephoneNumber(PHONE_NUMBER.getText())
+                .clickButtonNext();
+        return this;
+    }
+
+    @Step("Метод заполнения параметров второй страницы заказа")
+    public OrderPage secondPage(){
+                setDeliveryDate(DATE.getText())
+                .setRentalPeriod(RENTAL_PERIOD.getText())
+                .setColor(SCOOTER_COLOR.getText())
+                .setComment(COMMENT.getText());
+        return this;
+    }
+
+    @Step("Метод оформления и проверки заказа")
+    public void placingAndCheckingAnOrder(){
+                placeAnOrder()
+                .checkConfirmWindow()
+                .checkCompleteOrder();
+    }
+
+
+    @Step("Метод установки неккоректного адреса и проверка сообщения об ошибки страницы")
+    public OrderPage settingAnIncorrectAddressAndCheckingPageErrors(){
+                clickButtonNext()
+                .checkErrorMessage()
+                .setAddress(INCORRECT_ADDRESS.getText())
+                .checkCorrectAddress();
+        return this;
+    }
+
+    @Step("Метод установки даты 'Когда привезти самокат' и попытка сделать заказ без заполнения формы 'Срок аренды'")
+    public OrderPage settingDateAndTryingPlaceAnOrder(){
+                setDeliveryDate(DATE.getText())
+                .orderButtonInOrder()
+                .checkNotCompleteOrder();
+        return this;
+    }
+
+    @Step("Метод установки 'Срок аренды' и попытка сделать заказ без заполнения формы 'Когда привезти самокат'")
+    public void settingRentalPeriodAndTryingPlaceAnOrder(){
+                removeDateDelivery()
+                .setRentalPeriod(RENTAL_PERIOD.getText())
+                .orderButtonInOrder()
+                .checkNotCompleteOrder();// Ошибки не выдает, но заказ создать не получается.
     }
 }
 
