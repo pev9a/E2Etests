@@ -19,7 +19,7 @@ public class TestBase {
         Configuration.browserSize = "1920x1080";
 
         open(baseUrl);
-        common.acceptCookies(); // вынести это в каждый тест в хук @BeforeEach, тк в реальном проекте возможны ситуации, когда куки ты уже пробросил и акцептить их не надо
+        common.acceptCookies();
     }
 
     @AfterEach

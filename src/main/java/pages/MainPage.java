@@ -26,9 +26,8 @@ public class MainPage {
             scooterWasNotDeliveredAnswer = $("#accordion__panel-6"),
             bringItOutsideTheMoscowRingRoadQuestion = $("#accordion__heading-7"),
             definitelyAllScootersAnswer = $("#accordion__panel-7");
-    //сделать нейминг относительно содержания страницы по типу "Сколько будет стоить" = HowMuchCostQuestion
 
-    @Step("Проверка текста ответа 'Сутки — 400 рублей'") // нейминг относительно содержания вопроса
+    @Step("Проверка текста ответа 'Сутки — 400 рублей'")
     public MainPage checkAnswerFourHundredRublesForDay(){
         HowMuchCostQuestion.click();
         fourHundredRublesForDayAnswer.shouldHave(text(FIRST_RESPONSE_TEXT.getText()));
@@ -81,7 +80,6 @@ public class MainPage {
     public void checkAnswerDefinitelyAllScooters(){
         bringItOutsideTheMoscowRingRoadQuestion.click();
         definitelyAllScootersAnswer.shouldHave(text(TEXT_OF_THE_EIGHT_ANSWER.getText()));
-        //добавить return;
     }
 
     @Step("Метод проверки вопросов 'Вопросы о важном'")

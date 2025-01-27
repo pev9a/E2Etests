@@ -10,7 +10,7 @@ public class ImportantQuestionsTest extends TestBase {
 
     @Test
     @DisplayName("Проверка вопросов 'Вопросы о важном'")
-    void dropdownListTextTest(){ //нужен отдельный метод в пейдже который будет выполнять вот эти методы, тоесть mainPage.oneMethod();
+    void dropdownListTextTest(){
         mainPage.methodForCheckingAnswersToQuestion();
     }
 }

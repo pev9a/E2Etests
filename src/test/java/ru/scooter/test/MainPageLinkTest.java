@@ -9,12 +9,12 @@ import static com.codeborne.selenide.Selenide.open;
 import static ru.scooter.enums.Links.ORDER;
 
 public class MainPageLinkTest extends TestBase {
-    OrderPage orderPage = new OrderPage(); //private final
+    private final OrderPage orderPage = new OrderPage();
 
     @Test
     @DisplayName("Проверка корректности ссылки после клика на лого")
     void goToTheMainPageUsingTheLogoScooterIsCorrect() {
-        open(ORDER.getLink()); // заменить на енам
+        open(ORDER.getLink());
         orderPage.clickScooterLogo()
                 .checkLinkPage();
     }

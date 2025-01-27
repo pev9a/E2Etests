@@ -9,20 +9,12 @@ import static com.codeborne.selenide.Selenide.open;
 import static ru.scooter.enums.Links.ORDER;
 
 public class IncorrectDataTest extends TestBase {
-    OrderPage orderPage = new OrderPage(); //private final
+    private final OrderPage orderPage = new OrderPage();
 
     @Test
     @DisplayName("Проверка заказа самоката с введением некорректных данных")
     void orderWithIncorrectData(){
-        open(ORDER.getLink());//ордер эндпоинт вынести в енам Links, и открывать через open(Links.OrderEndpoint.getLink()); к примеру и через ламбоковские аннотации пиздануть типа того
-        /*
-         @AllArgsConstructor
-    @Getter
-    public enum ConstructorOption {
-        ORDER("/order")
-
-        private final String link;
-    }*/
+        open(ORDER.getLink());
         orderPage.settingAnIncorrectAddressAndCheckingPageErrors()
                 .firstPage()
                 .settingDateAndTryingPlaceAnOrder()

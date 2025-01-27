@@ -17,7 +17,7 @@ public class OrderPage {
     Calendar calendarComponent = new Calendar();
 
     private final SelenideElement
-            firstNameInput = $("input[placeholder='* Имя']"), //исправить " на ' чтобы обойтись без экранирования
+            firstNameInput = $("input[placeholder='* Имя']"),
             lastNameInput = $("input[placeholder='* Фамилия']"),
             addressInput = $("input[placeholder='* Адрес: куда привезти заказ']"),
             telephoneNumberInput = $("input[placeholder='* Телефон: на него позвонит курьер']"),
@@ -25,13 +25,13 @@ public class OrderPage {
             metroStation = $("input[placeholder='* Станция метро']"),
             buttonNext = $x("//*[contains(text(),'Далее')]"),
             rentPeriod = $(".Dropdown-arrow"),
-            buttonYesInOrder = $x("//*[contains(text(),'Да')]"),//сделать на XPATH
+            buttonYesInOrder = $x("//*[contains(text(),'Да')]"),
             errorMessage = $(".Input_Visible___syz6"),
             scooterLogo = $(".Header_LogoScooter__3lsAR"),
             confirmWindow = $(".Order_Modal__YZ-d3"),
             confirmMessage = $(".Order_ModalHeader__3FDaJ"),
             errorAddressMessage = $(".Order_Form__17u6u"),
-            buttonViewStatus = $x("//*[contains(text(),'Посмотреть статус')]"), //сделать на XPATH
+            buttonViewStatus = $x("//*[contains(text(),'Посмотреть статус')]"),
             completedOrderWindow = $(".Track_OrderInfo__2fpDL");
 
     private final ElementsCollection
@@ -41,13 +41,13 @@ public class OrderPage {
             rentPeriodSelection = $$(".Dropdown-option"),
             setColorSelection = $$("label");
 
-    @Step("Заказать самокат через кнопку в верхней правой части сайта") //проблема в нейминге, должно быть "Заказать самокат через кнопку в верхней правой части сайта"
-    public OrderPage clickTopMenuButton(){ //середина страницы то не bottom а middle, orderScooterByTopMenuButton
+    @Step("Заказать самокат через кнопку в верхней правой части сайта")
+    public OrderPage clickTopMenuButton(){
         orderButtons.get(0).click();
         return this;
     }
 
-    @Step("Заказать самокат через кнопку в середине сайта") //проблема в нейминге, должно быть "Заказать самокат через кнопку в середине сайта"
+    @Step("Заказать самокат через кнопку в середине сайта")
     public OrderPage clickMiddleMenuButton(){
         orderButtons.get(1).click();
         return this;
@@ -99,13 +99,7 @@ public class OrderPage {
         metroStation.click();
         metroStationSelection.findBy(text(value)).click();
         return this;
-    }/*сделай так ток переменная не х, а по смыслу и так везде где byText
-    public OrderPage setMetroStation(String value) {
-   *metroStation.click(); // Предположим, это открывает список станций
-    SelenideElement x = $(byText(value)); // Присваиваем элемент переменной x
-    x.click(); // Кликаем по элементу
-    return this;
-    }*/
+    }
 
     @Step("Метод нажатия по кнопке 'Далее' в заказе")
     public OrderPage clickButtonNext(){
@@ -126,14 +120,14 @@ public class OrderPage {
         return this;
     }
 
-    @Step("Метод заказа самоката с полностью заполненной формой и дальнейшее его подтверждение") //нейминг по тому же принципу как выше
+    @Step("Метод заказа самоката с полностью заполненной формой и дальнейшее его подтверждение")
     public OrderPage placeAnOrder(){
         buttonOrderInOrder.get(1).click();
         buttonYesInOrder.click();
         return this;
     }
 
-    @Step("Метод нажатия по кнопке 'Заказать' в заказе") //снвоа клик
+    @Step("Метод нажатия по кнопке 'Заказать' в заказе")
     public OrderPage orderButtonInOrder(){
         buttonOrderInOrder.get(1).click();
         return this;
@@ -160,7 +154,7 @@ public class OrderPage {
     @Step("Проверка оформленного заказа")
     public void checkCompleteOrder(){
         buttonViewStatus.click();
-        completedOrderWindow.shouldHave(text(FIRST_NAME.getText()),//сделать параметризацию (так Саня сказал) чтобы не было хардкода как параметр и прокидывать его сюда
+        completedOrderWindow.shouldHave(text(FIRST_NAME.getText()),
                 text(LAST_NAME.getText()),
                 text(ADDRESS.getText()),
                 text(PHONE_NUMBER.getText()));
@@ -171,13 +165,13 @@ public class OrderPage {
         confirmWindow.shouldNotHave(appear);
     }
 
-    @Step("Метод нажатия по логотипу 'Самокат'") //клик снова ёбаный
+    @Step("Метод нажатия по логотипу 'Самокат'")
     public OrderPage clickScooterLogo(){
         scooterLogo.click();
         return this;
     }
 
-    @Step("Проверка ссылки перенаправления") //тоже параметризация требуется
+    @Step("Проверка ссылки перенаправления")
     public void checkLinkPage(){
         webdriver().shouldHave(url(baseUrl));
     }
@@ -208,7 +202,6 @@ public class OrderPage {
                 .checkConfirmWindow()
                 .checkCompleteOrder();
     }
-
 
     @Step("Метод установки неккоректного адреса и проверка сообщения об ошибки страницы")
     public OrderPage settingAnIncorrectAddressAndCheckingPageErrors(){

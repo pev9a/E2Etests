@@ -6,11 +6,11 @@ import pages.OrderPage;
 import ru.scooter.Configuration.TestBase;
 
 public class OrderMiddleButtonTest extends TestBase {
-    OrderPage orderPage = new OrderPage();//private final
+    private final OrderPage orderPage = new OrderPage();
 
     @Test
     @DisplayName("Проверка заказа самоката из кнопки в середине страницы")
-    void orderBottomMenuButtonTest(){ //обьединить методы по смыслу для сокращения степов теста
+    void orderMiddleMenuButtonTest(){
         orderPage.clickMiddleMenuButton()
                 .firstPage()
                 .secondPage()

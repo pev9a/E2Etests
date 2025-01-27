@@ -10,8 +10,8 @@ public class Common {
     private final SelenideElement
             confirmCookiesButton = $("#rcc-confirm-button");
 
-    @Step("Принятие cookies") // норм пример того как должен быть выстроен нейминг, вместо кликов
+    @Step("Принятие cookies")
     public void acceptCookies(){
         confirmCookiesButton.shouldBe(visible).click();
-    }// создать общий класс Common и вынести туда этот метод
+    }
 }

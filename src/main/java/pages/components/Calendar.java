@@ -21,5 +21,5 @@ public class Calendar {
     public void removeDate(){
         dateDeliveryLocator.doubleClick();
         dateDeliveryLocator.clear();
-    }//сделать не циклом (подумать как, потому что здесь он не необходим) и почекать как ставятся скобки в цикле {}
+    }
 }
